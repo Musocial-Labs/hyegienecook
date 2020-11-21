@@ -9,5 +9,57 @@ module.exports = ({
                 return res(null, data)
             }
         })
-    }
+    },
+    loginUser: (req, res) => {
+        mysql.query(`select * from users where mobile=?;`, [req.body.mobile], (err, data) => {
+            if (err) {
+                return res(err);
+            }
+            return res(null, data[0])
+        })
+    },
+    getAllUser: (res) => {
+        mysql.query(`SELECT * FROM users ;`, [], (err, data) => {
+            if (err) {
+                return res(err)
+            }
+            return res(null, data)
+        })
+    },
+
+    // get user by id 
+
+    getUserByID: (req, res) => {
+        mysql.query("select * from `users` where `id`=?", [req.params.id], (err, data) => {
+            if (err) {
+                return res(err)
+            }
+            return res(null, data[0])
+        })
+    },
+
+    updateUser: (req, res) => {
+        mysql.query(`update users set ? where id = ?`, [
+                req.body, req.params.id
+            ],
+            (error, data) => {
+                if (error) {
+                    return res(error);
+                } else {
+                    return res(null, data);
+                }
+            }
+        );
+    },
+    deleteUser: (req, res) => {
+        mysql.query(
+            `delete from users where id = ? `, [req.params.id],
+            (error, data) => {
+                if (error) {
+                    return res(error);
+                }
+                return res(null, data);
+            }
+        );
+    },
 })

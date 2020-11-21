@@ -2,11 +2,12 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 
+const auth = require('../../middleware/auth')
 const { createOrders, getAllOrders, getOrdersById, updateOrders, deleteOrders } = require('./order.controller')
 
 const upload = multer()
 
-router.post('/', upload.none(), createOrders)
+router.post('/', upload.none(), auth, createOrders)
 
 router.get('/get', getAllOrders)
 
