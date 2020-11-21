@@ -1,8 +1,7 @@
-const { createOrder, getAllOrder, getOrderById, updateOrder, deleteOrder } = require('./order.service')
+const { createAddress, getAllAddress, getAddressById, deleteAddress, updateAddress } = require('./address.service')
 module.exports = ({
-    createOrders: (req, res) => {
-        console.log(req.body)
-        createOrder(req, (err, data) => {
+    createAddresses: (req, res) => {
+        createAddress(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -16,8 +15,8 @@ module.exports = ({
             }
         })
     },
-    getAllOrders: (req, res) => {
-        getAllOrder(req, (err, data) => {
+    getAllAddresses: (req, res) => {
+        getAllAddress((err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -31,8 +30,8 @@ module.exports = ({
             }
         })
     },
-    getOrdersById: (req, res) => {
-        getOrderById(req, (err, data) => {
+    getAddressesById: (req, res) => {
+        getAddressById(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -52,8 +51,8 @@ module.exports = ({
             }
         })
     },
-    updateOrders: (req, res) => {
-        updateOrder(req, (err, data) => {
+    updateAddresses: (req, res) => {
+        updateAddress(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -67,8 +66,8 @@ module.exports = ({
             }
         })
     },
-    deleteOrders: (req, res) => {
-        deleteOrder(req, (err, data) => {
+    deleteAddresses: (req, res) => {
+        deleteAddress(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,

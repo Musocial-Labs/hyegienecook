@@ -1,8 +1,7 @@
-const { createOrder, getAllOrder, getOrderById, updateOrder, deleteOrder } = require('./order.service')
+const { createProduct, getAllProduct, getProductById, updateProduct, deleteProduct } = require('./product.service')
 module.exports = ({
-    createOrders: (req, res) => {
-        console.log(req.body)
-        createOrder(req, (err, data) => {
+    createProducts: (req, res) => {
+        createProduct(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -16,8 +15,8 @@ module.exports = ({
             }
         })
     },
-    getAllOrders: (req, res) => {
-        getAllOrder(req, (err, data) => {
+    getAllProducts: (req, res) => {
+        getAllProduct((err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -31,8 +30,8 @@ module.exports = ({
             }
         })
     },
-    getOrdersById: (req, res) => {
-        getOrderById(req, (err, data) => {
+    getProductsById: (req, res) => {
+        getProductById(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -52,8 +51,9 @@ module.exports = ({
             }
         })
     },
-    updateOrders: (req, res) => {
-        updateOrder(req, (err, data) => {
+    updateProducts: (req, res) => {
+        req.body.productImage = req.file.path
+        updateProduct(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,
@@ -67,8 +67,8 @@ module.exports = ({
             }
         })
     },
-    deleteOrders: (req, res) => {
-        deleteOrder(req, (err, data) => {
+    deleteProducts: (req, res) => {
+        deleteProduct(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,

@@ -4,7 +4,7 @@ const mysql = createPool({
     user: 'root',
     port: 3306,
     password: '',
-    database: 'cook',
+    database: 'cooks',
     multipleStatements: true
 })
 
