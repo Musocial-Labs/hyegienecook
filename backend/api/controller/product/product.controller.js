@@ -16,7 +16,7 @@ module.exports = ({
         })
     },
     getAllProducts: (req, res) => {
-        getAllProduct((err, data) => {
+        getAllProduct(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,

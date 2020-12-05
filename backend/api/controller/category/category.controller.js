@@ -1,4 +1,4 @@
-const { createCategory, getAllCat, getCatById, updateCat, deleteCat } = require('./category.service')
+const { createCategory, getAllCat, getSubCatById, updateCat, deleteCat, getCatById } = require('./category.service')
 
 module.exports = ({
     createCategories(req, res) {
@@ -44,7 +44,28 @@ module.exports = ({
             if (err) {
                 res.json({
                     success: 0,
-                    msg: "Error while fetching by id"
+                    msg: "error while fetching category " + err
+                })
+            }
+            if (!data) {
+                res.json({
+                    success: 0,
+                    result: "no record found"
+                })
+            } else {
+                res.json({
+                    success: 1,
+                    result: data
+                })
+            }
+        })
+    },
+    getSubCatsById: (req, res) => {
+        getSubCatById(req, (err, data) => {
+            if (err) {
+                res.json({
+                    success: 0,
+                    msg: "Error while fetching by id " + err
                 })
             }
             if (!data) {

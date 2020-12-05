@@ -51,6 +51,20 @@ module.exports = ({
             }
         );
     },
+    updateCart: (req, res) => {
+        mysql.query(`UPDATE users SET incart = CONCAT(incart, ? ) WHERE id = ?;
+        `, [
+                req.body.incart, req.params.id
+            ],
+            (error, data) => {
+                if (error) {
+                    return res(error);
+                } else {
+                    return res(null, data);
+                }
+            }
+        );
+    },
     deleteUser: (req, res) => {
         mysql.query(
             `delete from users where id = ? `, [req.params.id],

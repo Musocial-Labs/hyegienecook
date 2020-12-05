@@ -1,8 +1,9 @@
-const { createUser, loginUser, getAllUser, getUserByID, updateUser, deleteUser } = require('./users.service')
+const { createUser, loginUser, getAllUser, getUserByID, updateUser,updateCart,deleteUser } = require('./users.service')
 const { hashSync, compareSync } = require('bcrypt')
 const jwt = require('jsonwebtoken')
 module.exports = ({
     createUsers: (req, res) => {
+        // console.log(req.file)
         if (req.body.password == req.body.cpassword) {
             req.body.password = hashSync(req.body.password, 10)
             createUser(req, (err, data) => {
@@ -83,7 +84,6 @@ module.exports = ({
         })
     },
     // get user by id 
-
     getUsersByID: (req, res) => {
         getUserByID(req, (err, data) => {
             if (err) {
@@ -108,8 +108,32 @@ module.exports = ({
         })
     },
     updateUsers: (req, res) => {
+        console.log(req.file.path)
         req.body.profilePicUrl = req.file.path
         updateUser(req, (err, data) => {
+            if (err) {
+                res.json({
+                    success: 0,
+                    msg: "err while update " + err
+                })
+            }
+            if (!data) {
+                res.json({
+                    success: 0,
+                    msg: "no result found"
+                })
+            } else {
+                res.json({
+                    success: 1,
+                    message: "updated successfully",
+                    result: data
+                });
+            }
+        })
+    },
+    //cartupdate
+    updateCarts: (req, res) => {
+        updateCart(req, (err, data) => {
             if (err) {
                 res.json({
                     success: 0,

@@ -8,8 +8,8 @@ module.exports = ({
             return res(null, data)
         })
     },
-    getAllProduct: (res) => {
-        mysql.query(`select * from products`, [], (err, data) => {
+    getAllProduct: (req, res) => {
+        mysql.query(`Select * from products limit`, [], (err, data) => {
             if (err) {
                 return res(err)
             }
@@ -17,7 +17,8 @@ module.exports = ({
         })
     },
     getProductById: (req, res) => {
-        mysql.query(`select * from products where id=?`, [req.params.id], (err, data) => {
+        mysql.query(`
+                            select * from products where id = ? `, [req.params.id], (err, data) => {
             if (err) {
                 return res(err)
             }
@@ -25,7 +26,9 @@ module.exports = ({
         })
     },
     updateProduct: (req, res) => {
-        mysql.query(`update products set ? where id=?;`, [req.body, req.params.id], (err, data) => {
+        mysql.query(`
+                            update products set ? where id = ? ;
+                            `, [req.body, req.params.id], (err, data) => {
             if (err) {
                 return res(err)
             } else {
@@ -34,7 +37,9 @@ module.exports = ({
         })
     },
     deleteProduct: (req, res) => {
-        mysql.query(`delete from products where id=?;`, [req.params.id], (err, data) => {
+        mysql.query(`
+                            delete from products where id = ? ;
+                            `, [req.params.id], (err, data) => {
             if (err) {
                 return res(err)
             }

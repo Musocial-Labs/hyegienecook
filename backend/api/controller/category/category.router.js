@@ -2,13 +2,15 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer');
 
-const { createCategories, getAllCats, getCatsById, updateCats, deleteCats } = require('./category.controller')
+const { createCategories, getAllCats, getSubCatsById, updateCats, deleteCats, getCatsById } = require('./category.controller')
 
 const upload = multer()
 
 router.post('/', upload.none(), createCategories);
 
 router.get('/get', getAllCats);
+
+router.get('/getsub/:id', getSubCatsById)
 
 router.get('/get/:id', getCatsById)
 

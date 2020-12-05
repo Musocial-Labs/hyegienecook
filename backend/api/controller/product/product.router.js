@@ -16,7 +16,7 @@ const upload = multer({
 
 router.post('/', upload, createProducts);
 
-router.get('/get', getAllProducts)
+router.get('/get/', getAllProducts)
 
 router.get('/get/:id', getProductsById)
 
