@@ -1,7 +1,7 @@
 const mysql = require('../../module/database')
 module.exports = ({
     createProduct: (req, res) => {
-        mysql.query(`INSERT INTO products (catId, menuName, description, calories, protein, fat, carbohydrates, fibre, productImage, costPrice, regularPrice, sellPrice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);`, [req.body.catId, req.body.menuName, req.body.description, req.body.calories, req.body.protein, req.body.fat, req.body.carbohydrates, req.body.fibre, req.file.path, req.body.costPrice, req.body.regularPrice, req.body.sellPrice], (err, data) => {
+        mysql.query(`INSERT INTO products (catId, menuName, description, calories, protein, fat, carbohydrates, fibre, productImage, costPrice, regularPrice, sellPrice,tax_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);`, [req.body.catId, req.body.menuName, req.body.description, req.body.calories, req.body.protein, req.body.fat, req.body.carbohydrates, req.body.fibre, req.file.path, req.body.costPrice, req.body.regularPrice, req.body.sellPrice,req.body.tax_id], (err, data) => {
             if (err) {
                 return res(err)
             }
@@ -9,16 +9,15 @@ module.exports = ({
         })
     },
     getAllProduct: (req, res) => {
-        mysql.query(`Select * from products limit`, [], (err, data) => {
+        mysql.query(`Select * from products limit ${req.params.offset},${req.params.limit}`, [], (err, data) => {
             if (err) {
                 return res(err)
             }
             return res(null, data)
         })
     },
-    getProductById: (req, res) => {
-        mysql.query(`
-                            select * from products where id = ? `, [req.params.id], (err, data) => {
+    getProductById:(req, res) => {
+        mysql.query(`select * from products where id = ? `, [req.params.id], (err, data) => {
             if (err) {
                 return res(err)
             }

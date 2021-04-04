@@ -25,7 +25,6 @@ app.use('/staff', staffRouter)
 app.use('/diet', dietRouter)
 app.use('/tax', taxRouter)
 
-
-app.listen(3000, () => {
-    console.log('your server has been started on port 3000')
+app.listen(4040, () => {
+    console.log('your server has been started on port 4040')
 })
