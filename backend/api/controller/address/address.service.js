@@ -24,6 +24,14 @@ module.exports = ({
             return res(null, data[0])
         })
     },
+      getAddressByuserId: (req, res) => {
+        mysql.query(`select * from address where userId=?`, [req.body.userid], (err, data) => {
+            if (err) {
+                return res(err)
+            }
+            return res(null, data)
+        })
+    },
     updateAddress: (req, res) => {
         mysql.query(`update address set ? where id=?;`, [req.body, req.params.id], (err, data) => {
             if (err) {

@@ -6,16 +6,16 @@ const { createCategories, getAllCats, getSubCatsById, updateCats, deleteCats, ge
 
 const upload = multer()
 
-router.post('/', upload.none(), createCategories);
+router.post('/', upload.none(),createCategories);
 
-router.get('/get', getAllCats);
+router.get('/', getAllCats);
 
 router.get('/getsub/:id', getSubCatsById)
 
-router.get('/get/:id', getCatsById)
+router.get('/:id', getCatsById)
 
-router.patch('/update/:id', upload.none(), updateCats)
+router.patch('/:id', upload.none(), updateCats)
 
-router.delete('/delete/:id', deleteCats)
+router.delete('/:id', deleteCats)
 
 module.exports = router;

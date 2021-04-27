@@ -10,6 +10,17 @@ module.exports = ({
             }
         })
     },
+      signupUser: (req, res) => {
+        mysql.query(`INSERT INTO users (name,mobile,password) VALUES (?,?,?);`, [req.body.name,req.body.mobile,req.body.password], (err, data) => {
+            if (err) {
+                console.log(err)
+                return res(err)
+            } else {
+                return res(null, data)
+            }
+        })
+    },
+    
     loginUser: (req, res) => {
         mysql.query(`select * from users where mobile=?;`, [req.body.mobile], (err, data) => {
             if (err) {
@@ -41,20 +52,6 @@ module.exports = ({
     updateUser: (req, res) => {
         mysql.query(`update users set ? where id = ?`, [
                 req.body, req.params.id
-            ],
-            (error, data) => {
-                if (error) {
-                    return res(error);
-                } else {
-                    return res(null, data);
-                }
-            }
-        );
-    },
-    updateCart: (req, res) => {
-        mysql.query(`UPDATE users SET incart = CONCAT(incart, ? ) WHERE id = ?;
-        `, [
-                req.body.incart, req.params.id
             ],
             (error, data) => {
                 if (error) {

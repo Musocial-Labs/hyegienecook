@@ -7,7 +7,6 @@ const { createExpenses, getAllExpenses, getExpensesById, updateExpenses, deleteE
 
 const upload = multer()
 
-// router.post('/',upload.none(),createExpenses)
 router.post("/", upload.none(), createExpenses)
 router.get("/",getAllExpenses)
 router.get("/:id",getExpensesById)

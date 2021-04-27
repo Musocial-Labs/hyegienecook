@@ -1,4 +1,4 @@
-const { createProduct, getAllProduct, getProductById, updateProduct, deleteProduct } = require('./product.service')
+const { createProduct, getAllProduct, getProductById,getFoodType, updateProduct, deleteProduct } = require('./product.service')
 module.exports = ({
     createProducts: (req, res) => {
         createProduct(req, (err, data) => {
@@ -16,17 +16,17 @@ module.exports = ({
         })
     },
     getAllProducts: (req, res) => {
-        getAllProduct(req, (err, data) => {
+        getAllProduct(req,(err, data) => {
             if (err) {
                 res.json({
                     success: 0,
                     msg: "error while fetching " + err
                 })
-            } else {
+            } else {   
                 res.json({
                     success: 1,
                     result: data
-                })
+                })   
             }
         })
     },
@@ -51,8 +51,31 @@ module.exports = ({
             }
         })
     },
+       getFoodTypes: (req, res) => {
+        getFoodType(req, (err, data) => {
+            if (err) {
+                res.json({
+                    success: 0,
+                    msg: "error while fetching by id " + err
+                })
+            }
+            if (!data) {
+                res.json({
+                    success: 0,
+                    msg: "no records found"
+                })
+            } else {
+                res.json({
+                    success: 1,
+                    result: data
+                })
+            }
+        })
+    },
     updateProducts: (req, res) => {
-        req.body.productImage = req.file.path
+        if(req.file){
+            req.body.productImage = req.file.path;
+        }
         updateProduct(req, (err, data) => {
             if (err) {
                 res.json({

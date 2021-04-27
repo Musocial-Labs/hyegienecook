@@ -17,5 +17,31 @@ module.exports = ({
                 return res(null,data)
             }
         })
-    }
+    },
+    getCouponById:(req,res)=>{
+    mysql.query(`select * from coupons where id=?`,[req.params.id],(err,data)=>{
+      if(err){
+            return res(err)
+        }
+        else{
+            return res(null,data[0])
+        }
+    })
+},
+updateCoupon: (req, res) => {
+            mysql.query(`update coupons set ? where id=?`, [req.body, req.params.id], (err, data) => {
+                if (err) {
+                    return res(err)
+                }
+                return res(null, data)
+            })
+        },
+        deleteCoupon: (req, res) => {
+        mysql.query(`delete from coupons where id=?`, [req.params.id], (err, data) => {
+            if (err) {
+                return res(err)
+            }
+            return res(null, data)
+        })
+    }  
 })

@@ -2,12 +2,9 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 
-const { createUsers, loginUsers, getAllUsers, getUsersByID, updateUsers,updateCarts, deleteUsers } = require('./users.controller')
 
-// middleware
-
-const { addUserValidation, userValidationResult, fileUploadValidation } = require('../../middleware/users/validation')
-
+const auth = require('../../middleware/auth')
+const { createUsers,signupUsers,loginUsers, getAllUsers, getUsersByID, updateUsers, deleteUsers } = require('./users.controller')
 const { checkMobile } = require('../../middleware/users/users.mobile_unique')
 
 const storage = multer.diskStorage({
@@ -20,19 +17,18 @@ const upload = multer({
     storage: storage
 })
 
-router.post('/', upload.single('profilePicUrl'), fileUploadValidation, addUserValidation, userValidationResult, checkMobile, createUsers)
+router.post('/', upload.single('profilePicUrl'), checkMobile, createUsers)
 
 router.post('/login', upload.none(), loginUsers)
 
+router.post('/signup', upload.none(),checkMobile,signupUsers)
+
 router.get('/', getAllUsers)
 
-router.get('/:id', getUsersByID)
+router.get('/:id',auth,getUsersByID)
 
-router.patch('/:id', upload.single('profilePicUrl'), fileUploadValidation, checkMobile, updateUsers)
+router.patch('/:id',auth,upload.single('profilePicUrl'), updateUsers)
 
-router.patch('/updatecart/:id', upload.none(),updateCarts
-)
-
-router.delete('/:id', deleteUsers)
+router.delete('/:id',auth,deleteUsers)
 
 module.exports = router

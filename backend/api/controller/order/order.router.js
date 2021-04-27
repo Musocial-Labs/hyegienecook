@@ -1,20 +1,23 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
+const Razorpay = require("razorpay");
+
 
 const auth = require('../../middleware/auth')
 const { createOrders, getAllOrders, getOrdersById, updateOrders, deleteOrders } = require('./order.controller')
 
 const upload = multer()
 
-router.post('/', upload.none(), auth, createOrders)
+router.post('/', upload.none(),auth,createOrders)
 
-router.get('/get', getAllOrders)
 
-router.get('/get/:id', getOrdersById)
+router.get('/',auth,getAllOrders)
 
-router.patch('/update/:id', upload.none(), updateOrders)
+router.get('/:id',auth,getOrdersById)
 
-router.delete('/delete/:id', deleteOrders)
+router.patch('/:id', upload.none(),auth,updateOrders)
+
+router.delete('/:id',auth,deleteOrders)
 
 module.exports = router

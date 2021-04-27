@@ -13,7 +13,7 @@ module.exports = ({
 
     // get all category 
     getAllCat: (res) => {
-        mysql.query(`SELECT * FROM  category`, [], (err, data) => {
+        mysql.query(`SELECT * FROM  category where parentCategoryId=0`, [], (err, data) => {
             if (err) {
                 return res(err)
             }
@@ -36,7 +36,7 @@ module.exports = ({
             if (err) {
                 return res(err)
             }
-            return res(null, data[0])
+            return res(null, data)
         })
     },
 
